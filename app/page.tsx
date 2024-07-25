@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { fadeIn } from '../variants';
 import Modal from '../components/Modal';
 import ContactUs from '../components/ContactUs';
+import { PasskeyModal } from '@/components/PasskeyModal';
 
 const navLinks = [
   {
@@ -23,7 +24,9 @@ const navLinks = [
   },
 ];
 
-const Home = () => {
+const Home = ({ searchParams }: SearchParamProps) => {
+  const isAdmin = searchParams?.admin === 'true';
+
   const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -42,6 +45,8 @@ const Home = () => {
 
   return (
     <div className="relative flex flex-col justify-center items-center ">
+      {isAdmin && <PasskeyModal />}
+
       <div className="fixed z-[70] top-0 left-0 w-screen h-svh md:h-screen pointer-events-none">
         <div className="absolute flex  p-4 md:p-6 lg:p-8 top-0 left-0 right-0">
           <div className="w-full h-0.5 bg-black dark:bg-white relative glitch-line"></div>
@@ -108,7 +113,6 @@ const Home = () => {
           animate="show"
           exit="hidden"
           className="absolute right-8 -top-0 md:top-0 flex justify-center items-center 2xl:top-0 z-20"
-          onClick={() => openModal()}
         >
           <Link
             href="/?admin=true"
