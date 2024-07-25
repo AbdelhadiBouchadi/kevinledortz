@@ -18,12 +18,16 @@ export function Parallax({
   const trigger = useRef<HTMLDivElement>(null); // this is the element that will trigger the animation
   const target = useRef<HTMLDivElement>(null); // this is the element that will be animated
   const timeline = useRef<gsap.core.Timeline>(); // this is the timeline of the animation that will be created by gsap
-  const windowSize = useWindowSize();
-
-  const { width: windowWidth } = windowSize;
+  const { width: windowWidth, height: windowHeight } = useWindowSize() || {
+    width: 0,
+    height: 0,
+  };
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+
+    if (!trigger.current || !target.current) return;
+
     const y = windowWidth * speed * 0.1;
     //  here the y is the distance the element will move in px when the trigger is at the top of the viewport and the element is at the bottom of the viewport
 

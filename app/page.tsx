@@ -102,6 +102,21 @@ const Home = () => {
             contact
           </h6>
         </motion.div>
+        <motion.div
+          variants={fadeIn('left', 0.4)}
+          initial="show"
+          animate="show"
+          exit="hidden"
+          className="absolute right-8 -top-0 md:top-0 flex justify-center items-center 2xl:top-0 z-20"
+          onClick={() => openModal()}
+        >
+          <Link
+            href="/?admin=true"
+            className="uppercase text-2xl font-semibold cursor-pointer hover:scale-110 transition-all duration-300 tracking-widest"
+          >
+            admin
+          </Link>
+        </motion.div>
       </div>
 
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
