@@ -185,7 +185,7 @@ to {
     @apply text-[12px] leading-[16px] font-semibold;
   }
 
-  /* Shadcn-ui overrides */
+  /* Shadcn-ui */
 
   .shad-primary-btn {
     @apply bg-green-500 text-white !important;
@@ -264,7 +264,7 @@ to {
   }
   
   .shad-alert-dialog {
-    @apply space-y-5 bg-dark-400 border-dark-500 outline-none !important;
+    @apply space-y-5 shadow-xl bg-white dark:bg-black outline-none !important;
   }
   
   .shad-sheet-content button {

@@ -19,6 +19,7 @@ import {
   InputOTPSlot,
 } from '@/components/ui/input-otp';
 import { decryptKey, encryptKey } from '@/lib/utils';
+import { useTheme } from 'next-themes';
 
 export const PasskeyModal = () => {
   const router = useRouter();
@@ -26,6 +27,7 @@ export const PasskeyModal = () => {
   const [open, setOpen] = useState(false);
   const [passkey, setPasskey] = useState('');
   const [error, setError] = useState('');
+  const { theme } = useTheme();
 
   const encryptedKey =
     typeof window !== 'undefined'
@@ -72,7 +74,11 @@ export const PasskeyModal = () => {
           <AlertDialogTitle className="flex items-start justify-between">
             Admin Access Verification
             <Image
-              src="/assets/icons/close.svg"
+              src={
+                theme === 'light'
+                  ? '/assets/icons/close.svg'
+                  : '/assets/icons/white-close.svg'
+              }
               alt="close"
               width={20}
               height={20}
