@@ -4,6 +4,11 @@ import { useEffect, useRef } from 'react';
 import { useWindowSize } from '@studio-freight/hamo';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
+interface WindowSize {
+  width: number;
+  height: number;
+}
+
 export function Parallax({
   className,
   children,
@@ -18,10 +23,12 @@ export function Parallax({
   const trigger = useRef<HTMLDivElement>(null); // this is the element that will trigger the animation
   const target = useRef<HTMLDivElement>(null); // this is the element that will be animated
   const timeline = useRef<gsap.core.Timeline>(); // this is the timeline of the animation that will be created by gsap
-  const { width: windowWidth, height: windowHeight } = useWindowSize() || {
-    width: 0,
-    height: 0,
-  };
+  const windowSize = useWindowSize(); // Get window size
+  const { width: windowWidth, height: windowHeight } =
+    (windowSize as WindowSize) || {
+      width: 0,
+      height: 0,
+    };
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -29,10 +36,7 @@ export function Parallax({
     if (!trigger.current || !target.current) return;
 
     const y = windowWidth * speed * 0.1;
-    //  here the y is the distance the element will move in px when the trigger is at the top of the viewport and the element is at the bottom of the viewport
-
     const setY = gsap.quickSetter(target.current, 'y', 'px');
-    // here we create a function that will set the y position of the element, The gsap.quickSetter() method is a handy way to create a function that will set a specific property on a specific object. In this case, we want to set the y property of the target element in pixels.
 
     timeline.current = gsap.timeline({
       scrollTrigger: {
@@ -48,7 +52,7 @@ export function Parallax({
     });
 
     return () => {
-      timeline?.current?.kill(); // this will kill the animation when the component unmounts
+      timeline.current?.kill(); // this will kill the animation when the component unmounts
     };
   }, [id, speed, windowWidth]);
 
