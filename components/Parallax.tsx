@@ -20,14 +20,6 @@ export function Parallax({
   const timeline = useRef<gsap.core.Timeline>(); // this is the timeline of the animation that will be created by gsap
   const windowSize = useWindowSize();
 
-  // Check if windowSize has the correct shape
-  if (!windowSize || typeof windowSize.width !== 'number') {
-    console.error(
-      'useWindowSize did not return a valid object. Expected an object with a width property'
-    );
-    return null;
-  }
-
   const { width: windowWidth } = windowSize;
 
   useEffect(() => {
